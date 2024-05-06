@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { auth } from "./../../db/firebase";
+import { auth, storage } from "./../../db/firebase";
 import toast, { Toaster } from 'react-hot-toast';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function Profile() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -18,9 +19,9 @@ export default function Profile() {
     setLoading(true);
 
     const snapshot = await uploadBytes(fileRef, file);
-    const photoURL = await getDownloadURL(fileRef);
+    const photoURL = await getDownloadURL(snapshot.ref);
 
-    updateProfile(currentUser, { photoURL });
+    updateProfile(auth.currentUser, { photoURL }); // Correction: Utilisez auth.currentUser au lieu de currentUser pour mettre à jour le profil
 
     setLoading(false);
 
@@ -39,7 +40,6 @@ export default function Profile() {
   const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
   const [choose, setChoose] = useState(false);
 
-
   function handleChange(e) {
     setChoose(true)
     if (e.target.files[0]) {
@@ -50,7 +50,7 @@ export default function Profile() {
   }
 
   function handleClick() {
-    upload(photo, currentUser, setLoading);
+    upload(photo, auth.currentUser, setLoading);
     setChoose(false)
   }
 
@@ -59,6 +59,10 @@ export default function Profile() {
       setPhotoURL(currentUser.photoURL);
     }
   }, [currentUser]);
+
+  const handleLogout = () => {
+    auth.signOut();
+  }
 
   return (
     <>
@@ -75,17 +79,14 @@ export default function Profile() {
         <div className="w-100 flex-grow flex flex-col items-center justify-around">
           <div className="border-b border-gray-400 w-80 h-1/6 flex items-center justify-between">
             <img className="w-20 h-20 rounded-full" src={photoURL} alt="Rounded avatar"></img>
-
-            {!choose && (
+            <div className="h-full flex flex-col">  
               <div className="file-input h-full flex items-center justify-center">
-                <label htmlFor="fileInput" className="w-full h-1/3 flex items-center justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">Changer la photo</label>
+                <label htmlFor="fileInput" className="w-full h-1/2 flex items-center justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">Changer la photo</label>
                 <input type="file" id="fileInput" onChange={handleChange} />
               </div>
-            )}
+              <button disabled={loading || !photo} onClick={handleClick} className="block w-full rounded-md border-0 py-1.5 pl-2 text-wrap text-slate-700 shadow-sm ring-1 ring-inset ring-red-300 placeholder:text-gray-950 sm:text-sm sm:leading-6 focus:outline-none">Supprimer la photo</button>
+            </div>
 
-            {choose && (
-              <button disabled={loading || !photo} onClick={handleClick} className="w-50 rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">Modifier</button>
-            )}
           </div>
 
         </div>
@@ -98,7 +99,9 @@ export default function Profile() {
           </p>
         </div>
         <div className="flex justify-end p-8">
-          <button type="submit" className="w-50 rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">
+          <button disabled={loading || !photo} onClick={handleClick} className="w-50 rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">Modifier</button>
+
+          <button type="button" className="w-50 rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700" onClick={handleLogout}>
             Se déconnecter
           </button>
         </div>

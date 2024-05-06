@@ -28,7 +28,13 @@ function App() {
   }, [])
 
   if (isFetch) {
-    return <h2>En cours de connexion</h2>
+    return (<div className="flex flex-col h-screen bg-gradient-to-b from-slate-50 to-slate-200">
+      <div className="flex items-start justify-start p-8">
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">
+          En cours de connexion
+        </h2>
+      </div>
+    </div>)
   }
 
   return (

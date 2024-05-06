@@ -35,7 +35,7 @@ export default function Dashboard() {
             .then(() => console.log('déconnexion réussie'))
             .catch((error) => console.log(error))
     }
-
+    
     return (
         <>
             <Toaster
@@ -55,6 +55,9 @@ export default function Dashboard() {
                     <p className="text-sm font-semibold leading-6 text-neutral-500">
                         Le site est en construction brother
                     </p>
+                    <a href='/profile' className="w-50 rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">
+                        Profile
+                    </a>
                 </div>
                 <div className="flex justify-end p-8">
                     <button type="submit" onClick={handleSignOut} className="w-50 rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">
