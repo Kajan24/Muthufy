@@ -4,11 +4,14 @@
 
 body {
     /* font-family: "Inter", sans-serif; */
-    font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif !important;
     /* background-color: #0d1422; */
     /* background-color: rgb(2 6 23); */
 }
 
+:root {
+    --bg-light-blue: rgba(65, 150, 65, 0);
+}
 
 .file-input input[type="file"] {
     display: none;
@@ -101,4 +104,90 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+._search_47p46_1 {
+    display: none;
+}
+
+#forPlayer {
+    margin-top: 7vh;
+    background-color: rebeccapurple;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+}
+
+._wrapper_1sefb_1 {
+    background-color: #E2E8F0 !important;
+    height: 95vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif !important;
+}
+
+._wrapper_t5ihs_1 {
+    display: none;
+}
+
+/*
+player container
+*/
+._wrapper_1ssds_1 {
+    position: absolute;
+    bottom: 4%;
+    width: 100%;
+    height: 10%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+._wrapper_exo6z_1 {
+    height: 100%;
+    width: 80%;
+}
+
+._time_ac0au_1 {
+    position: absolute;
+    bottom: 17em;
+    right: 1em;
+    font-size: 1em !important;
+    font-family: "Poppins", sans-serif !important;
+    color: #0f172a !important;
+    font-weight: 600;
+}
+
+/* 
+* Timeline
+*/
+._container_1kekm_1 {
+    position: absolute;
+    bottom: 8em;
+    width: 95%;
+    height: 10%;
+}
+
+._previous_1mino_1,
+._pause_1talx_1,
+._next_147p5_1,
+._play_rfl62_1 {
+    width: 2em !important;
+    height: 2em !important;
+}
+
+._wrapper_1er3w_1>input {
+    display: none;
+}
+
+._title_1ldbx_1 {
+    color: #0f172a !important;
+    font-weight: 600;
+}
+
+._wrapper_1rwm5_1 {
+    display: none !important;
 }
