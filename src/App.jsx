@@ -1,6 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home/Home'
+import Landing from './Pages/Home/Landing'
 import Reset from './Pages/Home/Reset'
 import Dashboard from './Pages/Dashboard/Dashboard'
 import Profile from './Pages/Dashboard/Profile'
@@ -41,6 +42,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home user={user} />} />
+        <Route path="/login" element={<Landing user={user} />} />
         <Route path="/reset" element={<Reset user={user} />} />
         <Route path="/dashboard" element={<ProtectedRoute user={user}><Dashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute user={user}><Profile /></ProtectedRoute>} />
