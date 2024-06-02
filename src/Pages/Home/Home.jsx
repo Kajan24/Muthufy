@@ -1,16 +1,81 @@
 import { useState, useEffect } from 'react';
-import { auth } from "../../db/firebase";
-import { signOut } from "firebase/auth";
 import toast, { Toaster } from 'react-hot-toast';
 import imageUrl from '../../assets/ohg.jpg'
 import NavBar from '../../components/NavBar';
+import { useNavigate } from 'react-router-dom';
+import { dark } from '@mui/material/styles/createPalette';
+
 
 export default function Home() {
-    const handleSignOut = () => {
-        signOut(auth)
-            .then(() => console.log('déconnexion réussie'))
-            .catch((error) => console.log(error))
-    }
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+        const fetchTracks = async () => {
+            try {
+                const response = await fetch('http://localhost/API/Muthufy/tracks/');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                const formattedData = data.map(track => ({
+                    id: track.id || 'Unknown id',
+                    url: track.url || 'Unknown track',
+                    title: `${track.title || 'Unknown Title'}`,
+                    tags: track.tags ? track.tags.split(',') : [],
+                    cover: track.cover || 'No cover found',
+                    artist_name: track.name || 'Unknown artist',
+                }));
+                setTracks(formattedData);
+            } catch (error) {
+                console.error('Error fetching tracks:', error);
+            }
+        };
+
+        fetchTracks();
+    }, []);
+
+
+    const [artists, setArtists] = useState([]);
+
+    useEffect(() => {
+        const fetchArtists = async () => {
+            try {
+                const response = await fetch('http://localhost/API/Muthufy/artists/');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                setArtists(data);
+            } catch (error) {
+                console.error('Error fetching artists:', error);
+            }
+        };
+
+        fetchArtists();
+    }, []);
+
+
+
+    const [albums, setAlbums] = useState([]);
+
+    useEffect(() => {
+        const fetchAlbums = async () => {
+            try {
+                const response = await fetch('http://localhost/API/Muthufy/albums/');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(data);
+                setAlbums(data);
+            } catch (error) {
+                console.error('Error fetching albums:', error);
+            }
+        };
+
+        fetchAlbums();
+    }, []);
+
 
     return (
         <>
@@ -33,12 +98,9 @@ export default function Home() {
                             Salut, Kajan 👋
                         </h2>
                         <div id='forBestSongs'>
-                            <BestSongsItem img={imageUrl} />
-                            <BestSongsItem img={imageUrl} />
-                            <BestSongsItem img={imageUrl} />
-                            <BestSongsItem img={imageUrl} />
-                            <BestSongsItem img={imageUrl} />
-                            <BestSongsItem img={imageUrl} />
+                            {tracks.map((track) => (
+                                <BestSongsItem key={track.id} id={track.id} img={track.cover} title={track.title} />
+                            ))}
                         </div>
                     </div>
 
@@ -47,11 +109,9 @@ export default function Home() {
                             Artiste en tendance
                         </h2>
                         <div className='trendingAlbum overflow-x-scroll'>
-                            <TredingAlbum img={imageUrl} songName="Oh girl" />
-                            <TredingAlbum img={imageUrl} songName="Oh girl" />
-                            <TredingAlbum img={imageUrl} songName="Oh girl" />
-                            <TredingAlbum img={imageUrl} songName="Oh girl" />
-                            <TredingAlbum img={imageUrl} songName="Oh girl" />
+                            {artists.map((artist) => (
+                                <TrendingArtist key={artist.id} songName={artist.name} img={artist.profile_photo} />
+                            ))}
                         </div>
                     </div>
 
@@ -61,11 +121,9 @@ export default function Home() {
                             Albums recommandés
                         </h2>
                         <div className='trendingAlbum overflow-x-scroll'>
-                            <RequestAlbum img={imageUrl} songName="Oh girl" />
-                            <RequestAlbum img={imageUrl} songName="Oh girl" />
-                            <RequestAlbum img={imageUrl} songName="Oh girl" />
-                            <RequestAlbum img={imageUrl} songName="Oh girl" />
-                            <RequestAlbum img={imageUrl} songName="Oh girl" />
+                            {albums.map((album) => (
+                                <RequestAlbum key={album.id} img={album.cover} songName={album.name} />
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -75,16 +133,22 @@ export default function Home() {
 }
 
 function BestSongsItem(props) {
+    const navigate = useNavigate();
+
+    const handleClickTrack = () => {
+        navigate(`/player/${props.id}`);
+    }
+
     return (
-        <div className="itemBestSong">
+        <div className="itemBestSong" onClick={handleClickTrack}>
             <img src={props.img} alt="imgCover" className='h-full mr-3 h-100' />
-            <p>Oh Girl</p>
+            <p>{props.title}</p>
         </div>
     )
 }
 
 
-function TredingAlbum(props) {
+function TrendingArtist(props) {
     return (
         <div className="itemTredingAlbum">
             <img src={props.img} alt="imgCover" className='h-3/4 h-100 rounded-full' />
