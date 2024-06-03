@@ -36,7 +36,6 @@ export default function Home() {
 
 
     const [artists, setArtists] = useState([]);
-
     useEffect(() => {
         const fetchArtists = async () => {
             try {
@@ -57,7 +56,6 @@ export default function Home() {
 
 
     const [albums, setAlbums] = useState([]);
-
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
@@ -66,7 +64,6 @@ export default function Home() {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log(data);
                 setAlbums(data);
             } catch (error) {
                 console.error('Error fetching albums:', error);
@@ -122,7 +119,7 @@ export default function Home() {
                         </h2>
                         <div className='trendingAlbum overflow-x-scroll'>
                             {albums.map((album) => (
-                                <RequestAlbum key={album.id} img={album.cover} songName={album.name} />
+                                <RequestAlbum key={album.id} id={album.id} img={album.cover} songName={album.name} />
                             ))}
                         </div>
                     </div>

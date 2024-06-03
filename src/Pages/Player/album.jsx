@@ -1,25 +1,25 @@
 import { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
 import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import returnIcon from '../../assets/arrow.svg';
 
 export default function Album() {
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
-                const response = await fetch('http://localhost/API/Muthufy/albums/?id=1');
+                const response = await fetch(`http://localhost/API/Muthufy/albums/?id=${id}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
                 setAlbums(data);
-                console.log(data);
                 setLoading(false);
 
             } catch (error) {
@@ -39,7 +39,7 @@ export default function Album() {
         return <div>Error: {error}</div>;
     }
     const handleReturn = () => {
-        navigate(-1); // Utilisez navigate avec l'argument -1 pour revenir à la route précédente
+        navigate(-1);
     };
     return (
         <>
@@ -51,15 +51,15 @@ export default function Album() {
                 <AlbumHeader albums={albums} />
                 {albums.length > 0 && (
                     <>
-                        <div className="p-4 h-1/2" id='albumContainer'>
+                        <div className="p-4" id='albumContainer'>
                             {albums.map((album, index) => (
                                 <AlbumTrack
                                     key={index}
                                     index={index + 1}
-                                    id={album.track_id}
+                                    id={album.id}
                                     img={album.album_cover}
                                     title={album.title}
-                                    artist={album.artist_name}
+                                    artist={album.artists}
                                 />
                             ))}
                         </div>
@@ -72,19 +72,18 @@ export default function Album() {
     );
 }
 const AlbumHeader = (props) => {
-    const navigate = useNavigate();
-
-    const handleClickTrack = () => {
-        navigate(`/player/${props.id}`);
-    }
     return (
-        <div className="p-4 h-1/3">
-            {props.albums !== null ? (
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">{props.albums[0].album_name}</h2>
-            ) : (
-                <div>Pas disponible !</div>
-            )}
-            <img src={props.albums[0].album_cover} alt="Album Cover" id="albumCoverAB" />
+        <div className="p-4 h-1/4 flex justify-between">
+            <div id='forAlbumInfo'>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">{props.albums[0].albumName}</h2>
+                <p>2024</p>
+
+                <div>
+                    <img src={props.albums[0].artistPP} alt="imgCover" className='h-2/4 h-100 rounded-full' />
+                    <p>{props.albums[0].albumArtist}</p>
+                </div>
+            </div>
+            <img src={props.albums[0].albumCover} alt="Album Cover" id="albumCoverAB" />
 
         </div>
     )

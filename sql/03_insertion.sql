@@ -67,6 +67,9 @@ INSERT INTO artists (name, profile_photo) VALUES
     ('Timal', 'http://localhost:5173/public/covers/artist/timal.jpg'),
     ('Gazo', 'http://localhost:5173/public/covers/artist/gazo.jpg'),
     ('Lil Baby', 'http://localhost:5173/public/covers/artist/lil_baby.jpg'),
+    ('Vidyasagar', 'http://localhost:5173/public/covers/artist/vidyasagar.jpg'),
+    ('Udit Narayan', 'http://localhost:5173/public/covers/artist/udit_narayan.jpg'),
+    ('Maes', 'http://localhost:5173/public/covers/artist/maes.jpg'),
     ('Koba la D', 'http://localhost:5173/public/covers/artist/koba_la_d.jpg');
 
 -- Insertion des données dans la table des pistes
@@ -82,18 +85,41 @@ INSERT INTO tracks (url, title, tags, artist_id, cover) VALUES
     ('http://localhost:5173/public/songs/paris.mp3', 'Paris', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
     ('http://localhost:5173/public/songs/enzo.mp3', 'Enzo', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
     ('http://localhost:5173/public/songs/ounahi.mp3', 'Ounahi', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
+
+    ('http://localhost:5173/public/songs/kokkaraKokkarakko.mp3', 'Kokkara Kokkarakko', 'Kuthu', (SELECT id FROM artists WHERE name = 'Vidyasagar'), 'http://localhost:5173/public/covers/album/ghilli.jpg'),
+    ('http://localhost:5173/public/songs/arjunaruVillu.mp3', 'Arjunaru Villu', 'Kuthu', (SELECT id FROM artists WHERE name = 'Vidyasagar'), 'http://localhost:5173/public/covers/album/ghilli.jpg'),
+    ('http://localhost:5173/public/songs/kabadi.mp3', 'Kabadi', 'Kuthu', (SELECT id FROM artists WHERE name = 'Vidyasagar'), 'http://localhost:5173/public/covers/album/ghilli.jpg'),
+    ('http://localhost:5173/public/songs/shaLaLaa.mp3', 'Sha La Laa', 'Kuthu', (SELECT id FROM artists WHERE name = 'Vidyasagar'), 'http://localhost:5173/public/covers/album/ghilli.jpg'),
+    ('http://localhost:5173/public/songs/sooraThenga.mp3', 'Soora Thenga', 'Kuthu', (SELECT id FROM artists WHERE name = 'Vidyasagar'), 'http://localhost:5173/public/covers/album/ghilli.jpg'),
+    
+    ('http://localhost:5173/public/songs/reste.mp3', 'Reste', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+    ('http://localhost:5173/public/songs/dansTesMains.mp3', 'Dans tes mains', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+    ('http://localhost:5173/public/songs/paf.mp3', 'PAF', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+    ('http://localhost:5173/public/songs/seul.mp3', 'Seul', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+    ('http://localhost:5173/public/songs/django.mp3', 'Django', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+    ('http://localhost:5173/public/songs/pasChange.mp3', 'Pas Changé', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+    ('http://localhost:5173/public/songs/autonomie.mp3', 'Autonomie', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+    ('http://localhost:5173/public/songs/mate.mp3', 'Mate', 'Rap', (SELECT id FROM artists WHERE name = 'Maes'), 'http://localhost:5173/public/covers/album/lvc.jpg'),
+
     ('http://localhost:5173/public/songs/piste_brouille.mp3', 'Piste brouillée', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg');
 
 -- Insertion des collaborations dans la table de jointure
 INSERT INTO track_collaborators (track_id, artist_id) VALUES
     ((SELECT id FROM tracks WHERE title = 'band4band'), (SELECT id FROM artists WHERE name = 'Central cee')),
     ((SELECT id FROM tracks WHERE title = 'band4band'), (SELECT id FROM artists WHERE name = 'Lil Baby')),
-    ((SELECT id FROM tracks WHERE title = 'Filtré'), (SELECT id FROM artists WHERE name = 'Timal')),
-    ((SELECT id FROM tracks WHERE title = 'Filtré'), (SELECT id FROM artists WHERE name = 'Gazo'));
+
+        ((SELECT id FROM tracks WHERE title = 'band4band'), (SELECT id FROM artists WHERE name = 'Central cee')),
+    ((SELECT id FROM tracks WHERE title = 'band4band'), (SELECT id FROM artists WHERE name = 'Lil Baby')),
+
+
+    ((SELECT id FROM tracks WHERE title = 'Kokkara Kokkarakko'), (SELECT id FROM artists WHERE name = 'Vidyasagar')),
+    ((SELECT id FROM tracks WHERE title = 'Kokkara Kokkarakko'), (SELECT id FROM artists WHERE name = 'Udit Narayan'));
     
 -- Insertion des données dans la table des albums
 INSERT INTO albums (name, number_of_tracks, cover, artist_id) VALUES
     ('Darzava', 6, 'http://localhost:5173/public/covers/album/darzava.jpg', (SELECT id FROM artists WHERE name = 'Timal'));
+    ('Ghilli', 5, 'http://localhost:5173/public/covers/album/ghilli.jpg', (SELECT id FROM artists WHERE name = 'Vidyasagar'));
+    ('LVC', 8, 'http://localhost:5173/public/covers/album/lvc.jpg', (SELECT id FROM artists WHERE name = 'Maes'));
 
 -- Insertion des artistes dans la table de jointure des artistes des albums
 INSERT INTO album_artists (album_id, artist_id) VALUES
@@ -106,4 +132,19 @@ INSERT INTO album_tracks (album_id, track_id) VALUES
     ((SELECT id FROM albums WHERE name = 'Darzava'), (SELECT id FROM tracks WHERE title = 'Paris')),
     ((SELECT id FROM albums WHERE name = 'Darzava'), (SELECT id FROM tracks WHERE title = 'Enzo')),
     ((SELECT id FROM albums WHERE name = 'Darzava'), (SELECT id FROM tracks WHERE title = 'Ounahi')),
-    ((SELECT id FROM albums WHERE name = 'Darzava'), (SELECT id FROM tracks WHERE title = 'Piste brouillée'));
+    ((SELECT id FROM albums WHERE name = 'Darzava'), (SELECT id FROM tracks WHERE title = 'Piste brouillée')),
+    
+        ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'Reste')),
+    ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'Dans tes mains')),
+    ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'PAF')),
+    ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'Seul')),
+    ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'Django')),
+    ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'Pas Changé')),
+    ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'Autonomie')),
+    ((SELECT id FROM albums WHERE name = 'LVC'), (SELECT id FROM tracks WHERE title = 'DjaMatengo')),
+    
+        ((SELECT id FROM albums WHERE name = 'Ghilli'), (SELECT id FROM tracks WHERE title = 'Kokkara Kokkarakko')),
+    ((SELECT id FROM albums WHERE name = 'Ghilli'), (SELECT id FROM tracks WHERE title = 'Arjunaru Villu')),
+    ((SELECT id FROM albums WHERE name = 'Ghilli'), (SELECT id FROM tracks WHERE title = 'Kabadi')),
+    ((SELECT id FROM albums WHERE name = 'Ghilli'), (SELECT id FROM tracks WHERE title = 'Sha La Laa')),
+    ((SELECT id FROM albums WHERE name = 'Ghilli'), (SELECT id FROM tracks WHERE title = 'Soora Thenga'));
