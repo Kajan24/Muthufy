@@ -139,9 +139,9 @@ export default function Landing({ user }) {
     const handlePasswordChange = (event) => setPassword(event.target.value);
 
 
-    if (user) {
-        return <Navigate to="/"></Navigate>
-    }
+    // if (user) {
+    //     return <Navigate to="/"></Navigate>
+    // }
 
     return (
         <>

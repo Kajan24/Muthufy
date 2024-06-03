@@ -121,7 +121,8 @@ body {
     width: 100%;
     height: 6%;
 }
-#infoPlayer>div:nth-child(1){
+
+#infoPlayer>div:nth-child(1) {
     display: flex;
     flex-direction: start;
     align-items: center;
@@ -130,11 +131,12 @@ body {
     height: 75%;
 }
 
-#infoPlayer>div:nth-child(2){
+#infoPlayer>div:nth-child(2) {
     height: 25%;
     border-radius: 3px;
 
 }
+
 #controllerPlayer {
     width: 80%;
     height: 10%;
@@ -146,4 +148,34 @@ body {
 
 #controllerPlayer>img {
     width: 12%;
+}
+
+.albumTrack {
+    width: 100%;
+    min-height: 18%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+
+.abid {
+    width: 15%;
+    font-size: 150%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100% !important;
+}
+
+.albumTrack>div:nth-child(2) {
+    width: 85%;
+}
+
+#albumCoverAB {
+    width: 50%;
+}
+
+#albumContainer {
+    overflow: auto;
 }

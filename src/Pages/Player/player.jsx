@@ -96,7 +96,7 @@ export default function Player() {
     };
 
     const handleReturn = () => {
-        navigate(`/`);
+        navigate(-1); // Utilisez navigate avec l'argument -1 pour revenir à la route précédente
     };
 
     const calculateProgress = () => {
@@ -122,43 +122,43 @@ export default function Player() {
 
     const trackIndex = parseInt(id, 10) - 1; // Déplacer trackIndex en dehors de useEffect
 
-const currentTrack = tracks[trackIndex];
+    const currentTrack = tracks[trackIndex];
 
-return (
-    <>
-        <NavBar></NavBar>
+    return (
+        <>
 
-        <div id='Player' className="bg-gradient-to-b from-slate-50 to-slate-200">
-            <img src={returnIcon} alt="prev" className="text-3xl font-bold" onClick={handleReturn} />
+            <div id='Player' className="bg-gradient-to-b from-slate-50 to-slate-200">
+                <img src={returnIcon} alt="prev" className="text-3xl font-bold" onClick={handleReturn} />
 
-            {currentTrack && (
-                <>
-                    <h1 className="text-3xl font-bold mb-4">{currentTrack.title}</h1>
-                    <img src={currentTrack.cover} alt="Cover" ref={coverRef} className="mb-4 rounded-lg" />
-                    <div id="infoPlayer">
-                        <div>
-                            <h2 className="text-xl">{formatArtists(currentTrack.artists)}</h2>
-                            <p className="text-gray-500">{formatTime(currentTime)} /{formatTime(duration)}</p>
+                {currentTrack && (
+                    <>
+                        <h1 className="text-3xl font-bold mb-4">{currentTrack.title}</h1>
+                        <img src={currentTrack.cover} alt="Cover" ref={coverRef} className="mb-4 rounded-lg" />
+                        <div id="infoPlayer">
+                            <div>
+                                <h2 className="text-xl">{formatArtists(currentTrack.artists)}</h2>
+                                <p className="text-gray-500">{formatTime(currentTime)} /{formatTime(duration)}</p>
+                            </div>
+                            <div className="w-full h-4 bg-gray-200 rounded-full" onClick={handleProgressBarClick}>
+                                <div className="h-full bg-slate-800 rounded-full" style={{ width: `${calculateProgress()}%` }}></div>
+                            </div>
                         </div>
-                        <div className="w-full h-4 bg-gray-200 rounded-full" onClick={handleProgressBarClick}>
-                            <div className="h-full bg-slate-800 rounded-full" style={{ width: `${calculateProgress()}%` }}></div>
-                        </div>
-                    </div>
-                    <audio autoPlay={true} src={currentTrack.url} ref={audioRef} onTimeUpdate={handleTimeUpdate} onEnded={handleEnded} className="mb-4"></audio>
+                        <audio autoPlay={true} src={currentTrack.url} ref={audioRef} onTimeUpdate={handleTimeUpdate} onEnded={handleEnded} className="mb-4"></audio>
 
-                    <div className="flex items-center mt-4" id='controllerPlayer'>
-                        <img src={prevIcon} alt="prev" className="text-3xl font-bold" onClick={handlePrevClick} />
-                        {isPlaying ? (
-                            <img src={pauseIcon} alt="pause" className="text-3xl font-bold" onClick={handlePlayPauseClick} />
-                        ) : (
-                            <img src={playIcon} alt="play" className="text-3xl font-bold" onClick={handlePlayPauseClick} />
-                        )}
-                        <img src={skipIcon} alt="next" className="text-3xl font-bold" onClick={handleNextClick} />
-                    </div>
-                </>
-            )}
-        </div>
-    </>
-);
+                        <div className="flex items-center mt-4" id='controllerPlayer'>
+                            <img src={prevIcon} alt="prev" className="text-3xl font-bold" onClick={handlePrevClick} />
+                            {isPlaying ? (
+                                <img src={pauseIcon} alt="pause" className="text-3xl font-bold" onClick={handlePlayPauseClick} />
+                            ) : (
+                                <img src={playIcon} alt="play" className="text-3xl font-bold" onClick={handlePlayPauseClick} />
+                            )}
+                            <img src={skipIcon} alt="next" className="text-3xl font-bold" onClick={handleNextClick} />
+                        </div>
+                    </>
+                )}
+            </div>
+            <NavBar></NavBar>
+        </>
+    );
 
 }

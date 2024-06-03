@@ -6,6 +6,7 @@ import Reset from './Pages/Home/Reset'
 import Dashboard from './Pages/Dashboard/Dashboard'
 import Test from './Pages/Home/test'
 import Player from './Pages/Player/player'
+import Album from './Pages/Player/album'
 import Profile from './Pages/Dashboard/Profile'
 import { useState, useEffect } from 'react'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -47,6 +48,7 @@ function App() {
         <Route path="/login" element={<Landing user={user} />} />
         <Route path="/test" element={<Test />} />
         <Route path="/player/:id" element={<Player />} />
+        <Route path="/album/:id" element={<Album />} />
         <Route path="/reset" element={<Reset user={user} />} />
         <Route path="/dashboard" element={<ProtectedRoute user={user}><Dashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute user={user}><Profile /></ProtectedRoute>} />

@@ -12,7 +12,7 @@ export default function Home() {
     useEffect(() => {
         const fetchTracks = async () => {
             try {
-                const response = await fetch('http://localhost/API/Muthufy/tracks/');
+                const response = await fetch('http://localhost/API/Muthufy/bestTracks/');
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -158,8 +158,15 @@ function TrendingArtist(props) {
 }
 
 function RequestAlbum(props) {
+
+    const navigate = useNavigate();
+
+    const handleAlbum = () => {
+        navigate(`/album/${props.id}`);
+    }
+
     return (
-        <div className="itemTredingAlbum">
+        <div className="itemTredingAlbum" onClick={handleAlbum}>
             <img src={props.img} alt="imgCover" className='h-3/4 h-100' />
             <p>{props.songName}</p>
         </div>

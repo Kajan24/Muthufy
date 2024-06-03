@@ -76,12 +76,12 @@ INSERT INTO tracks (url, title, tags, artist_id, cover) VALUES
     ('http://localhost:5173/public/songs/salvatore.mp3', 'Salvatore', 'hardcore', (SELECT id FROM artists WHERE name = 'Iss'), 'http://localhost:5173/public/covers/salvatore.jpg'),
     ('http://localhost:5173/public/songs/band4band.mp3', 'band4band', 'Rap', (SELECT id FROM artists WHERE name = 'Central cee'), 'http://localhost:5173/public/covers/band4band.jpg'),
     ('http://localhost:5173/public/songs/vatos.mp3', 'Vatos', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/vatos.jpg'),
-    ('http://localhost:5173/public/songs/filtre.mp3', 'Filtré', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/filtre.jpg');
-    ('http://localhost:5173/public/songs/rr_phantom.mp3', 'RR Phantom', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg');
-    ('http://localhost:5173/public/songs/glock9.mp3', 'Glock 9', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg');
-    ('http://localhost:5173/public/songs/paris.mp3', 'Paris', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg');
-    ('http://localhost:5173/public/songs/enzo.mp3', 'Enzo', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg');
-    ('http://localhost:5173/public/songs/ounahi.mp3', 'Ounahi', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg');
+    ('http://localhost:5173/public/songs/filtre.mp3', 'Filtré', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/filtre.jpg'),
+    ('http://localhost:5173/public/songs/rr_phantom.mp3', 'RR Phantom', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
+    ('http://localhost:5173/public/songs/glock9.mp3', 'Glock 9', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
+    ('http://localhost:5173/public/songs/paris.mp3', 'Paris', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
+    ('http://localhost:5173/public/songs/enzo.mp3', 'Enzo', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
+    ('http://localhost:5173/public/songs/ounahi.mp3', 'Ounahi', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg'),
     ('http://localhost:5173/public/songs/piste_brouille.mp3', 'Piste brouillée', 'Rap', (SELECT id FROM artists WHERE name = 'Timal'), 'http://localhost:5173/public/covers/album/darzava.jpg');
 
 -- Insertion des collaborations dans la table de jointure
@@ -90,7 +90,7 @@ INSERT INTO track_collaborators (track_id, artist_id) VALUES
     ((SELECT id FROM tracks WHERE title = 'band4band'), (SELECT id FROM artists WHERE name = 'Lil Baby')),
     ((SELECT id FROM tracks WHERE title = 'Filtré'), (SELECT id FROM artists WHERE name = 'Timal')),
     ((SELECT id FROM tracks WHERE title = 'Filtré'), (SELECT id FROM artists WHERE name = 'Gazo'));
-
+    
 -- Insertion des données dans la table des albums
 INSERT INTO albums (name, number_of_tracks, cover, artist_id) VALUES
     ('Darzava', 6, 'http://localhost:5173/public/covers/album/darzava.jpg', (SELECT id FROM artists WHERE name = 'Timal'));
