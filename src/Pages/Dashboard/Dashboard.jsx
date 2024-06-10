@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { auth } from "../../db/firebase";
-import { signOut } from "firebase/auth";
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Dashboard() {

@@ -1,60 +1,41 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home/Home'
-import Landing from './Pages/Home/Landing'
-import Reset from './Pages/Home/Reset'
-import Dashboard from './Pages/Dashboard/Dashboard'
-import Test from './Pages/Home/test'
 import Player from './Pages/Player/player'
 import Album from './Pages/Player/album'
-import Profile from './Pages/Dashboard/Profile'
 import { useState, useEffect } from 'react'
-import ProtectedRoute from './components/ProtectedRoute'
-import { auth } from './db/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
 
 function App() {
-
-  const [user, setUser] = useState(null);
-  const [isFetch, setIsFetch] = useState(true)
+  const [isFetch, setIsFetch] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user)
-        setIsFetch(false)
-        return;
-      }
-      setUser(null)
-      setIsFetch(false)
-    });
-    return () => unsubscribe();
-  }, [])
+    // Simulate a fetch call with a timeout
+    setTimeout(() => {
+      setIsFetch(false); // Set to false after fetching data
+    }, 2000); // 2 seconds delay to simulate fetch
+  }, []);
 
   if (isFetch) {
-    return (<div className="flex flex-col h-screen bg-gradient-to-b from-slate-50 to-slate-200">
-      <div className="flex items-start justify-start p-8">
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">
-          En cours de connexion
-        </h2>
+    return (
+      <div className="flex flex-col h-screen bg-gradient-to-b from-slate-50 to-slate-200">
+        <div className="flex items-start justify-start p-8">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">
+            En cours de connexion
+          </h2>
+        </div>
       </div>
-    </div>)
+    );
   }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/login" element={<Landing user={user} />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/" element={<Home />} />
         <Route path="/player/:id" element={<Player />} />
         <Route path="/album/:id" element={<Album />} />
-        <Route path="/reset" element={<Reset user={user} />} />
-        <Route path="/dashboard" element={<ProtectedRoute user={user}><Dashboard /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute user={user}><Profile /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;

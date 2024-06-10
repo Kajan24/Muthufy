@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { auth, storage } from "./../../db/firebase";
 import toast, { Toaster } from 'react-hot-toast';
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function Profile() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -79,7 +77,7 @@ export default function Profile() {
         <div className="w-100 flex-grow flex flex-col items-center justify-around">
           <div className="border-b border-gray-400 w-80 h-1/6 flex items-center justify-between">
             <img className="w-20 h-20 rounded-full" src={photoURL} alt="Rounded avatar"></img>
-            <div className="h-full flex flex-col">  
+            <div className="h-full flex flex-col">
               <div className="file-input h-full flex items-center justify-center">
                 <label htmlFor="fileInput" className="w-full h-1/2 flex items-center justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-slate-100 shadow-sm hover:bg-gray-700">Changer la photo</label>
                 <input type="file" id="fileInput" onChange={handleChange} />

@@ -1,6 +1,4 @@
 import { useState } from "react"
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from '../../db/firebase'
 import { Navigate } from "react-router-dom"
 import toast, { Toaster } from 'react-hot-toast';
 
